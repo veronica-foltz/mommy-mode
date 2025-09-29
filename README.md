@@ -7,7 +7,6 @@ Features
 - Meal Planning – Plan weekly meals, store recipes, and organize dinner schedules.  
 - Grocery List – Add, update, and check off groceries in real time.  
 - Today View – A simple dashboard showing what’s happening today at a glance.  
-- Light/Dark Mode – Cute, clean theme with an easy toggle.  
 
 Tech Stack
 - Frontend: Expo, React Native, NativeWind (TailwindCSS for RN)  
