@@ -1,35 +1,33 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import Header from "../../src/components/ui/Header";
+import { ThemeProvider } from "../../src/theme/ThemeProvider";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+    <ThemeProvider>
+      <Tabs
+        screenOptions={({ route }) => ({
+          header: () => <Header />,
+          tabBarActiveTintColor: "#7f86e5",
+          tabBarInactiveTintColor: "#7b7b8b",
+          tabBarStyle: { height: 60, paddingBottom: 8, paddingTop: 8 },
+          tabBarIcon: ({ color, size }) => {
+            const map: Record<string, keyof typeof Ionicons.glyphMap> = {
+              today: "today-outline",
+              calendar: "calendar-outline",
+              meals: "restaurant-outline",
+              grocery: "cart-outline",
+            };
+            return <Ionicons name={map[route.name] || "ellipse-outline"} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tabs.Screen name="today" options={{ title: "Today" }} />
+        <Tabs.Screen name="calendar" options={{ title: "Calendar" }} />
+        <Tabs.Screen name="meals" options={{ title: "Meals" }} />
+        <Tabs.Screen name="grocery" options={{ title: "Grocery" }} />
+      </Tabs>
+    </ThemeProvider>
   );
 }
